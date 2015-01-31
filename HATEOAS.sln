@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HATEOAS", "HATEOAS\HATEOAS.csproj", "{B0F9F873-2729-4258-BD33-06112945C033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HATEOS-Lib", "HATEOS-Lib\HATEOS-Lib.csproj", "{B6CDEFE1-A989-4815-B9DB-B2C9CC7A3C20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HATEOSLibTest", "HATEOSLibTest\HATEOSLibTest.csproj", "{4BE80F8C-053D-45BF-86A5-A8D678BCEE39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttributeTestLib", "AttributeTestLib\AttributeTestLib.csproj", "{9615E5EA-0465-4B78-BF95-B921B3E35348}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0F9F873-2729-4258-BD33-06112945C033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0F9F873-2729-4258-BD33-06112945C033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0F9F873-2729-4258-BD33-06112945C033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0F9F873-2729-4258-BD33-06112945C033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6CDEFE1-A989-4815-B9DB-B2C9CC7A3C20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6CDEFE1-A989-4815-B9DB-B2C9CC7A3C20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6CDEFE1-A989-4815-B9DB-B2C9CC7A3C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6CDEFE1-A989-4815-B9DB-B2C9CC7A3C20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BE80F8C-053D-45BF-86A5-A8D678BCEE39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BE80F8C-053D-45BF-86A5-A8D678BCEE39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BE80F8C-053D-45BF-86A5-A8D678BCEE39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BE80F8C-053D-45BF-86A5-A8D678BCEE39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9615E5EA-0465-4B78-BF95-B921B3E35348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9615E5EA-0465-4B78-BF95-B921B3E35348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9615E5EA-0465-4B78-BF95-B921B3E35348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9615E5EA-0465-4B78-BF95-B921B3E35348}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
