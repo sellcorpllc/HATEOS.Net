@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace HATEOS_Lib.Factory
 {
-    public class UrlFactory<T> where T:class
+    public class UrlFactory
     {
         private string _baseUrl;
 
@@ -23,7 +23,7 @@ namespace HATEOS_Lib.Factory
             _baseUrl = baseUrl;
         }
 
-        public string generateUrl(T resourceClass)
+        public string generateUrl(Object resourceClass)
         {
             
             string resourceName = resourceClass.GetType().GetCustomAttribute<Resource>().resourceName;

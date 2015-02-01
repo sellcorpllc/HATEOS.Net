@@ -18,9 +18,11 @@ namespace HATEOSLibTest
         [TestMethod]
         public void ResourceAttributeItem_UT()
         {        
-            //Get a list
+            //Get a list of attributes
             List<Attribute> attrs = new List<Attribute>(Attribute.GetCustomAttributes(typeof(Item)));
             string resourceName = "";
+
+            //Iterate through attributes and then find the one to produce the the resource
             foreach (Attribute attr in attrs)
             {
                 if (attr is Resource)
@@ -29,9 +31,11 @@ namespace HATEOSLibTest
                     resourceName = a.resourceName;
                 }
             }
+            //Check and make sure the resourcename found is item
             Assert.IsTrue(resourceName.CompareTo("item")==0);
         }
 
+        //This is an improved version of the above test that runs much faster
         [TestMethod]
         public void ResourceAttributeItemForObject_UT()
         {
@@ -41,6 +45,7 @@ namespace HATEOSLibTest
 
             string resourceName = "";
 
+            //Grab the resource attribute from the test item object rather than iterate through it
             Resource r = testItem.GetType().GetCustomAttribute<Resource>();
             resourceName = r.resourceName;
             Assert.IsTrue(resourceName.CompareTo("item") == 0);
@@ -75,6 +80,7 @@ namespace HATEOSLibTest
         }
 
 
+        //This code generates the url for an object given the mark up.
         [TestMethod]
         public void urlItemClass_UT()
         {
@@ -85,14 +91,18 @@ namespace HATEOSLibTest
             testItem.ItemId = 4;
             testItem.Name = "Test item";
 
+            //Get the 2 components
             string resourceName = testItem.GetType().GetCustomAttribute<Resource>().resourceName;
             string resourceKey = testItem.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(ResourceKey))).FirstOrDefault().GetValue(testItem, null).ToString();
 
+            //Bring everything together
             string testUrl = String.Format(baseUrl + "/{0}/{1}", resourceName, resourceKey);
 
             Assert.IsTrue(expectEdUrl.CompareTo(testUrl) == 0);
         }
 
+
+        //Get the URL for orderline test object
         [TestMethod]
         public void urlForOrderLine_UT()
         {
@@ -118,6 +128,7 @@ namespace HATEOSLibTest
 
         }
 
+        //Put the url code into a factory class and test it
         [TestMethod]
         public void urlTestFactoryOrderLine_UT()
         {
@@ -126,16 +137,19 @@ namespace HATEOSLibTest
             testItem.Name = "Test item";
             string expectEdUrl = @"/api/item/4";
 
-            UrlFactory<Item> urlGenerator = new UrlFactory<Item>(@"/api");
+            UrlFactory urlGenerator = new UrlFactory(@"/api");
             string testUrl = urlGenerator.generateUrl(testItem);
 
             Assert.IsTrue(expectEdUrl.CompareTo(testUrl) == 0);
 
         }
 
+        //generate the url for a relate resource
         [TestMethod]
         public void urlForRelatedResource_UT()
         {
+            string expectEdUrl = @"/api/item/4";
+            string testURL = "";
 
             Item testItem = new Item();
             testItem.ItemId = 4;
@@ -149,12 +163,12 @@ namespace HATEOSLibTest
 
             foreach (PropertyInfo p in propList)
             {
-                p.GetValue(testOrderLine, null);
-                Type t = p.GetValue(testOrderLine, null).GetType();
-
-                Assert.Fail();
+                UrlFactory urlGenerator = new UrlFactory(@"/api");
+                testURL =  urlGenerator.generateUrl(p.GetValue(testOrderLine, null));
+                 
             }
 
+            Assert.IsTrue(expectEdUrl.CompareTo(testURL) == 0);
 
         }
 
