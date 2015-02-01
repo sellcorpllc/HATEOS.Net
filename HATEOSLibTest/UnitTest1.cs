@@ -8,6 +8,7 @@ using System.Data.Linq;
 using System.Linq;
 using HATEOS_Lib.Factory;
 using System.Collections;
+using HATEOS_Lib;
 
 
 namespace HATEOSLibTest
@@ -263,6 +264,35 @@ namespace HATEOSLibTest
 
         }
 
+        [TestMethod]
+        public void generateLinkForRelatedResource_UT()
+        {
+            string expectEdUrl = @"/api/item/4";
+            string testURL = "";
 
+            Item testItem = new Item();
+            testItem.ItemId = 4;
+            testItem.Name = "Test item";
+
+            OrderLine testOrderLine = new OrderLine();
+            testOrderLine.OrderLineId = 182;
+            testOrderLine.OrderItem = testItem;
+
+            Link testLink = new Link();
+
+            //Get a property that has a related resource attribute.
+            PropertyInfo p = testOrderLine.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(RelatedResource))).ToList<PropertyInfo>().FirstOrDefault();
+ 
+            UrlFactory urlGenerator = new UrlFactory(@"/api");
+            testURL = urlGenerator.generateUrl(p.GetValue(testOrderLine, null));
+            testLink.Url = testURL;
+            testLink.Method = HTTPMethods.GET;
+
+            testLink.Relation = p.GetCustomAttribute<RelatedResource>().relationship;
+            
+            Assert.IsTrue(expectEdUrl.CompareTo(testLink.Url) == 0);
+            Assert.IsTrue("GET".CompareTo(testLink.Method) == 0);
+            Assert.IsTrue(testLink.Relation.CompareTo("field") == 0);
+        }
     }
 }

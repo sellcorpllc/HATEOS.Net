@@ -20,7 +20,7 @@ namespace AttributeTestLib
             set { _orderId = value; }
         }
 
-        [RelatedResource("field")]
+        [RelatedResource("collectionField")]
         public List<OrderLine> OrderLines
         {
             get { return _orderLines; }

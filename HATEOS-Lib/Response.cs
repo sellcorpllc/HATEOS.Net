@@ -14,7 +14,11 @@ namespace HATEOS_Lib
         private List<T> _result;
         private Link _nextLink;
         private Link _thisLink;
-        private List<Link> _relatedLinks;
+        // This list holds actions that can be done on the resource such as POST,PUT,DELETE ex. decrease value of an account
+        private List<Link> _actionLinks;
+       
+        // This list holds links to additional resources
+        private List<Link> _resourceLinks;       
         #endregion
 
         #region Properties
@@ -48,10 +52,16 @@ namespace HATEOS_Lib
             set { _thisLink = value; }
         }
 
-        public List<Link> RelatedLinks
+        public List<Link> ActionLinks
         {
-            get { return _relatedLinks; }
-            set { _relatedLinks = value; }
+            get { return _actionLinks; }
+            set { _actionLinks = value; }
+        }
+
+        public List<Link> ResourceLinks
+        {
+            get { return _resourceLinks; }
+            set { _resourceLinks = value; }
         }
         #endregion
 
