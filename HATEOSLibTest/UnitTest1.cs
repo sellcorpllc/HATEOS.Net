@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Data.Linq;
 using System.Linq;
+using HATEOS_Lib.Factory;
 
 
 namespace HATEOSLibTest
@@ -120,7 +121,15 @@ namespace HATEOSLibTest
         [TestMethod]
         public void urlTestFactoryOrderLine_UT()
         {
-           
+            Item testItem = new Item();
+            testItem.ItemId = 4;
+            testItem.Name = "Test item";
+            string expectEdUrl = @"/api/item/4";
+
+            UrlFactory<Item> urlGenerator = new UrlFactory<Item>(@"/api");
+            string testUrl = urlGenerator.generateUrl(testItem);
+
+            Assert.IsTrue(expectEdUrl.CompareTo(testUrl) == 0);
 
         }
 
@@ -141,7 +150,9 @@ namespace HATEOSLibTest
             foreach (PropertyInfo p in propList)
             {
                 p.GetValue(testOrderLine, null);
+                Type t = p.GetValue(testOrderLine, null).GetType();
 
+                Assert.Fail();
             }
 
 
