@@ -43,6 +43,7 @@
     <Compile Include="Attributes\RelatedResource.cs" />
     <Compile Include="Attributes\Resource.cs" />
     <Compile Include="Attributes\ResourceKey.cs" />
+    <Compile Include="Factory\UrlFactory.cs" />
     <Compile Include="HTTPMethods.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Response.cs" />

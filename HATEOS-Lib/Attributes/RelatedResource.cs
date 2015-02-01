@@ -11,6 +11,8 @@ namespace HATEOS_Lib.Attributes
     public class RelatedResource : Attribute
     {
         public RelatedResource(string rel) { relationship = rel; }
+
+        //This exists to distinguish this link from actions and give the user their own relationship
         public string relationship;
     }
 }
