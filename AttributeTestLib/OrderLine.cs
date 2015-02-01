@@ -12,8 +12,17 @@ namespace AttributeTestLib
     {
         
         int _orderLineId;
-
         Item _orderItem;
+
+        public OrderLine() : this(new Item())
+        {
+
+        }
+
+        public OrderLine(Item aItem)
+        {
+            _orderItem = aItem;
+        }
 
         [RelatedResource("field")]
         public Item OrderItem

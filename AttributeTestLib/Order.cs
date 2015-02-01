@@ -11,7 +11,7 @@ namespace AttributeTestLib
     public class Order
     {
         private int _orderId;
-        List<OrderLine> _orderLines;
+        List<OrderLine> _orderLines = new List<OrderLine>();
 
         [ResourceKey()]
         public int OrderId

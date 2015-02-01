@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Data.Linq;
 using System.Linq;
 using HATEOS_Lib.Factory;
+using System.Collections;
 
 
 namespace HATEOSLibTest
@@ -169,6 +170,96 @@ namespace HATEOSLibTest
             }
 
             Assert.IsTrue(expectEdUrl.CompareTo(testURL) == 0);
+
+        }
+
+        //generate the urls for a relate resource for a collection
+        [TestMethod]
+        public void detectRelatedResouceICollection_UT ()
+        {
+            //Declare test items
+            Item testItem1 = new Item();
+            testItem1.ItemId = 4;
+            testItem1.Name = "Test item";
+
+            Item testItem2 = new Item();
+            testItem2.ItemId = 777;
+            testItem2.Name = "Bacon";
+
+            //Declare OrderLines
+            OrderLine ol1 = new OrderLine(testItem1);
+            ol1.OrderLineId = 1;
+
+            OrderLine ol2 = new OrderLine(testItem2);
+            ol2.OrderLineId = 24;
+
+            //Declare new order and add hte orderlines to the orderline list
+            Order newOrder = new Order();
+            newOrder.OrderLines.Add(ol1);
+            newOrder.OrderLines.Add(ol2);
+
+            PropertyInfo pInfo = newOrder.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(RelatedResource))).FirstOrDefault();
+            Object relatedResource = pInfo.GetValue(newOrder, null);
+
+            //There is only one related resource in order and it is a list of orderlines. Test for IEnumberable so it can be iterated over.
+            Assert.IsTrue(relatedResource is IEnumerable);
+        }
+
+        [TestMethod]
+        public void getUrlsforRelatedResourceCollection_UT()
+        {
+             //Declare test items
+            Item testItem1 = new Item();
+            testItem1.ItemId = 4;
+            testItem1.Name = "Test item";
+
+            Item testItem2 = new Item();
+            testItem2.ItemId = 777;
+            testItem2.Name = "Bacon";
+
+            //Declare OrderLines
+            OrderLine ol1 = new OrderLine(testItem1);
+            ol1.OrderLineId = 1;
+
+            OrderLine ol2 = new OrderLine(testItem2);
+            ol2.OrderLineId = 24;
+
+
+            //Declare new order and add hte orderlines to the orderline list
+            Order newOrder = new Order();
+            newOrder.OrderLines.Add(ol1);
+            newOrder.OrderLines.Add(ol2);
+
+            List<string> urlsForOrderLines = new List<string>();
+
+
+
+            PropertyInfo pInfo = newOrder.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(RelatedResource))).FirstOrDefault();
+            Object relatedResource = pInfo.GetValue(newOrder, null);
+
+            if (relatedResource is IEnumerable)
+            {
+                foreach(var ele in (IEnumerable)relatedResource)
+                {
+                    UrlFactory urlGenerator = new UrlFactory(@"/api");
+                    string url = urlGenerator.generateUrl(ele);
+                    urlsForOrderLines.Add(url);
+
+                }
+            }
+
+            foreach (string olURL in urlsForOrderLines)
+            {
+                string expectEdUrl1 = @"/api/orderlines/1";
+                string expectEdUrl2 = @"/api/orderlines/24";
+
+                if(olURL.CompareTo(expectEdUrl1) != 0 && olURL.CompareTo(expectEdUrl2) !=0)
+                {
+                    Assert.Fail("Urls are incorrect");
+                }
+            }
+            
+
 
         }
 
